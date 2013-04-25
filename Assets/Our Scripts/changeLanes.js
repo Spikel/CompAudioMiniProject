@@ -1,34 +1,29 @@
 var bike : GameObject;
+var lanePos : String;
 
 function Start () 
 {	
 	if (bike == null)
 	{
-    	GameObject.FindGameObjectsWithTag ('bike');
+    	bike = GameObject.FindGameObjectWithTag ('bike');
 	}
-
 }
 
 function Update () 
 {
-
-}
-
-function moveToLane(lane)
-{
-	if (lane == 'right')
+	if(Input.GetKey('a'))
 	{
-		while (bike.transform.position.x < 340)
+		if (bike.transform.position.x > 0)
 		{
-			bike.transform.Translate(Vector3.right * Time.deltaTime);
+			bike.transform.Translate(Vector3.left *1000* Time.deltaTime);
 		}
 	}
 	
-	if (lane == 'left')
+	if(Input.GetKey('d'))
 	{
-		while (bike.tansform.position.x > 0)
+		if (bike.transform.position.x < 340)
 		{
-			bike.transform.Translate(Vector3.left * Time.deltaTime);
+			bike.transform.Translate(Vector3.right *1000* Time.deltaTime);
 		}
 	}
 }
@@ -36,16 +31,4 @@ function moveToLane(lane)
 function OnTriggerEnter(other: Collider)
 {
 
-	Debug.Log(bike.lanePos);
-	if (bike.lanePos == 'left')
-	{
-		moveToLane('right');
-		bike.lanePos = 'right';
-	}
-	
-	if (bike.lanePos == 'right')
-	{
-		moveToLane('left');
-		bike.lanePos = 'left';
-	}
 }
