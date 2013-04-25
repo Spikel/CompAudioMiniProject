@@ -7,7 +7,7 @@ function Start ()
 	{
     	GameObject.FindGameObjectsWithTag ("car");
 	}
-	speed = 5000;
+	speed = 3500;
 }
 
 function Update () 
