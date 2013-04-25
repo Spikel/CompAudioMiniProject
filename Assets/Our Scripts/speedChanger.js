@@ -5,6 +5,7 @@ public var guiScript : motorcycleGUI;
 public var speedLimitChangeSound : AudioSource;
 public var motorcycleSound : AudioSource;
 public var speedWarning : AudioSource;
+public var blinkerSound : AudioSource;
 public var timeSinceLastSpeedWarning = 0.0;
 public var numSpeedWarningsLeft = 0.0;
 
@@ -39,17 +40,12 @@ function Update () {
 	}
 	
 	if(numSpeedWarningsLeft > 0 && timeSinceLastSpeedWarning > 0.1) {
-			Debug.Log("Playing warning");
-					speedWarning.Play();
-					
-					numSpeedWarningsLeft--;
-					timeSinceLastSpeedWarning = 0.0;
+		speedWarning.Play();
+		numSpeedWarningsLeft--;
+		timeSinceLastSpeedWarning = 0.0;
 	}
 	
 	guiScript.updateSpeedLimit(currentSpeedLimit);
-	
-	
-	
 	
     if (Input.GetKeyDown (KeyCode.UpArrow)){
         mover.speed+=5;
@@ -66,9 +62,28 @@ function Update () {
     	if(mover.speed < 0) {
     		mover.speed = 0;
     		motorcycleSound.pitch+=.02;
+        }
+    }
+    
+    if (Input.GetKeyDown (KeyCode.DownArrow)){
+    	mover.speed-=5;
+    	motorcycleSound.pitch-=.02;
+    	if(mover.speed < 0) {
+    		mover.speed = 0;
+    		motorcycleSound.pitch+=.02;
     		
         }
     }
-   
+    
+    if (Input.GetKeyDown (KeyCode.RightArrow)){
+    	guiScript.turnLeftBlinkerOff();
+    	guiScript.toggleRightBlinker();
+    }
+    
+     if (Input.GetKeyDown (KeyCode.LeftArrow)){
+    	guiScript.turnRightBlinkerOff();
+    	guiScript.toggleLeftBlinker();
+    }
+    
 }
 
