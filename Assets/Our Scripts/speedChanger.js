@@ -19,8 +19,8 @@ function Update () {
 	guiScript.updateCurrentSpeed(mover.speed);
 	
 	
-	if(car.transform.position.z > 45703) {
-		currentSpeedLimit = 55;
+	if(car.transform.position.z > 42000) {
+		currentSpeedLimit = 65;
 	} else if (car.transform.position.z > 23598) {
 		currentSpeedLimit = 35;
 	} else if (car.transform.position.z > 4389) {
@@ -56,7 +56,7 @@ function Update () {
         motorcycleSound.pitch+=.02;
         if(mover.speed > 95) {
         	mover.speed = 95;
-        	
+        	motorcycleSound.pitch-=.02;
         }
     }
     
@@ -65,6 +65,7 @@ function Update () {
     	motorcycleSound.pitch-=.02;
     	if(mover.speed < 0) {
     		mover.speed = 0;
+    		motorcycleSound.pitch+=.02;
     		
         }
     }
