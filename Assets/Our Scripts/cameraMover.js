@@ -7,11 +7,16 @@ function Start ()
 	{
     	GameObject.FindGameObjectsWithTag ("bike");
 	}
-	speed = 55;
+	speed = 2500;
 }
 
 function Update () 
 {
-	bike.transform.Translate(Vector3.forward * speed * 50 * Time.deltaTime);
+	bike.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+	
+	if (bike.transform.position.z >= 72300)
+	{
+		bike.transform.rotation = Quaternion.Euler(0, 20.6, 0);
+	}
 }
 
