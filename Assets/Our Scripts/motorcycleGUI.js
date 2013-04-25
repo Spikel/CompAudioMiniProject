@@ -6,7 +6,7 @@ var xIcon : Texture2D;
 var speedLimitBorder : Texture2D;
 
 
-//InvokeRepeating ("checkBlinker", 0.001, 0.30);
+InvokeRepeating ("checkBlinker", 0.001, 0.30);
 
 private var timeToBlink = false;
 private var padding = 40;
@@ -22,8 +22,10 @@ private var rightBlinkerOn = false;
 	clearRearRightAlert();
 	
 	updateSpeedLimit(65);
-	turnLeftBlinkerOn();
-	turnRightBlinkerOn();
+	turnLeftBlinkerOff();
+	turnRightBlinkerOff();
+	GameObject.Find("GUILeftTurn").guiTexture.enabled = false;
+	GameObject.Find("GUIRightTurn").guiTexture.enabled = false;
 	}
 
 function OnGUI () {
@@ -91,6 +93,14 @@ function turnLeftBlinkerOff() {
 	leftBlinkerOn = false;
 }
 
+function toggleLeftBlinker() {
+	leftBlinkerOn = !leftBlinkerOn;
+}
+
+function toggleRightBlinker() {
+	rightBlinkerOn = !rightBlinkerOn;
+}
+
 function turnRightBlinkerOn() {
 	rightBlinkerOn = true;
 }
@@ -104,6 +114,9 @@ function stopBlinkers() {
 }
 
 function checkBlinker() {
+	GameObject.Find("GUILeftTurn").guiTexture.enabled = false;
+	GameObject.Find("GUIRightTurn").guiTexture.enabled = false;
+	
 	if(leftBlinkerOn) {
 		GameObject.Find("GUILeftTurn").guiTexture.enabled = timeToBlink;
 	}
