@@ -13,11 +13,11 @@ function Start () {
 function Update () {
 	var bike = this;
 	
-	if(bike.transform.position.z > 60000 && !hasPlayedGPS) {
+	if(bike.transform.position.z > 62000 && !hasPlayedGPS) {
 		gpsSound.Play();
 		hasPlayedGPS = true;
 		
-	} else if(bike.transform.position.z > 55000 && !hasPlayedWeather) {
+	} else if(bike.transform.position.z > 60000 && !hasPlayedWeather) {
 		weatherAlertSound.Play();
 		hasPlayedWeather = true;
 		
