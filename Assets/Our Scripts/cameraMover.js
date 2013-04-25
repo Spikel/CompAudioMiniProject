@@ -7,11 +7,11 @@ function Start ()
 	{
     	GameObject.FindGameObjectsWithTag ("bike");
 	}
-	speed = 2500;
+	speed = 55;
 }
 
 function Update () 
 {
-	bike.transform.Translate(Vector3.forward * speed * Time.deltaTime);
+	bike.transform.Translate(Vector3.forward * speed * 50 * Time.deltaTime);
 }
 

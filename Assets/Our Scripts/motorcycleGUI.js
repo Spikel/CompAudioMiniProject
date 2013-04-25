@@ -21,7 +21,7 @@ private var rightBlinkerOn = false;
 	clearRearLeftAlert();
 	clearRearRightAlert();
 	
-	updateSpeedLimit("80");
+	updateSpeedLimit(65);
 	turnLeftBlinkerOn();
 	turnRightBlinkerOn();
 	}
@@ -76,11 +76,11 @@ function clearRightAlert() {
 }
 
 function updateCurrentSpeed(value) {
-	GameObject.Find("GUICurrentSpeed").guiText.text = value;
+	GameObject.Find("GUICurrentSpeed").guiText.text = ""  +value;
 }
 
 function updateSpeedLimit(value) {
-	GameObject.Find("GUISpeedLimit").guiText.text = value;
+	GameObject.Find("GUISpeedLimit").guiText.text = "" + value;
 }
 
 function turnLeftBlinkerOn() {
