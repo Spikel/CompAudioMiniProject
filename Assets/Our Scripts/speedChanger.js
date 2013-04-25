@@ -4,13 +4,15 @@ public var currentSpeedLimit = 65;
 public var guiScript : motorcycleGUI;
 public var speedLimitChangeSound : AudioSource;
 public var motorcycleSound : AudioSource;
+public var quietMotorcycleSound : AudioSource;
 public var speedWarning : AudioSource;
 
 public var timeSinceLastSpeedWarning = 0.0;
 public var numSpeedWarningsLeft = 0.0;
+public var doCancellation = false;
 
 function Start () {
-
+	
 }
 
 function Update () {
@@ -50,30 +52,26 @@ function Update () {
     if (Input.GetKeyDown (KeyCode.UpArrow)){
         mover.speed+=5;
         motorcycleSound.pitch+=.02;
+        quietMotorcycleSound.pitch+=.02;
         if(mover.speed > 95) {
         	mover.speed = 95;
         	motorcycleSound.pitch-=.02;
+        	quietMotorcycleSound.pitch-=.02;
         }
     }
     
     if (Input.GetKeyDown (KeyCode.DownArrow)){
     	mover.speed-=5;
     	motorcycleSound.pitch-=.02;
+    	quietMotorcycleSound.pitch-=.02;
     	if(mover.speed < 0) {
     		mover.speed = 0;
     		motorcycleSound.pitch+=.02;
+    		quietMotorcycleSound.pitch+=.02;
         }
     }
     
-    if (Input.GetKeyDown (KeyCode.DownArrow)){
-    	mover.speed-=5;
-    	motorcycleSound.pitch-=.02;
-    	if(mover.speed < 0) {
-    		mover.speed = 0;
-    		motorcycleSound.pitch+=.02;
-    		
-        }
-    }
+    
     
     if (Input.GetKeyDown (KeyCode.RightArrow)){
     	guiScript.turnLeftBlinkerOff();
@@ -83,6 +81,19 @@ function Update () {
      if (Input.GetKeyDown (KeyCode.LeftArrow)){
     	guiScript.turnRightBlinkerOff();
     	guiScript.toggleLeftBlinker();
+    }
+    
+     if (Input.GetKeyDown (KeyCode.C)){
+       doCancellation = !doCancellation;
+     	Debug.Log("Cancelation" + doCancellation);
+    	if(doCancellation) {
+    		motorcycleSound.Stop();
+    		quietMotorcycleSound.Play();
+    	} else {
+    		motorcycleSound.Play();
+    		quietMotorcycleSound.Stop();
+    	}
+    	
     }
     
 }
