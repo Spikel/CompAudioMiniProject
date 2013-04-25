@@ -4,7 +4,7 @@ var leftTurnIcon : Texture2D;
 var rightTurnIcon : Texture2D;
 var xIcon : Texture2D;
 var speedLimitBorder : Texture2D;
-
+public var blinkerSound : AudioSource;
 
 InvokeRepeating ("checkBlinker", 0.001, 0.30);
 
@@ -91,26 +91,33 @@ function turnLeftBlinkerOn() {
 
 function turnLeftBlinkerOff() {
 	leftBlinkerOn = false;
+	blinkerSound.Stop();
 }
 
 function toggleLeftBlinker() {
+
 	leftBlinkerOn = !leftBlinkerOn;
+	if(leftBlinkerOn) {blinkerSound.Play();}
 }
 
 function toggleRightBlinker() {
 	rightBlinkerOn = !rightBlinkerOn;
+	if(rightBlinkerOn) {blinkerSound.Play();}
 }
 
 function turnRightBlinkerOn() {
+	blinkerSound.Play();
 	rightBlinkerOn = true;
 }
 
 function turnRightBlinkerOff() {
 	rightBlinkerOn = false;
+	blinkerSound.Stop();
 }
 
 function stopBlinkers() {
 	leftBlinkerOn = rightBlinkerOn = false;
+	blinkerSound.Stop();
 }
 
 function checkBlinker() {

@@ -5,7 +5,7 @@ public var guiScript : motorcycleGUI;
 public var speedLimitChangeSound : AudioSource;
 public var motorcycleSound : AudioSource;
 public var speedWarning : AudioSource;
-public var blinkerSound : AudioSource;
+
 public var timeSinceLastSpeedWarning = 0.0;
 public var numSpeedWarningsLeft = 0.0;
 
