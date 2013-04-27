@@ -7,13 +7,20 @@ public var motorcycleSound : AudioSource;
 public var quietMotorcycleSound : AudioSource;
 public var speedWarning : AudioSource;
 
+public var timeSinceLastSpeedReminder = 0.0;
+public var numSpeedRemindersLeft = 0;
 public var timeSinceLastSpeedWarning = 0.0;
 public var numSpeedWarningsLeft = 0.0;
 public var doCancellation = false;
+public var maxSpeedInCurrentZone = 0;
+public var lastSpeedWarningWasPlayedAt = 0;
+public var lastSpeed;
 
 function Start () {
 	
 }
+
+
 
 function Update () {
 	var car = this;
@@ -31,15 +38,17 @@ function Update () {
 	}
 	
 	timeSinceLastSpeedWarning += Time.deltaTime;
+	timeSinceLastSpeedReminder += Time.deltaTime;
 	
 	if(oldSpeedLimit != currentSpeedLimit) {
 		speedLimitChangeSound.Play();
 		if(mover.speed > currentSpeedLimit + 10) {
 			
 			numSpeedWarningsLeft = 3;
-			timeSinceLastSpeedWarning = -1.0;
+			timeSinceLastSpeedWarning = -0.75;
 		}
 	}
+	
 	
 	if(numSpeedWarningsLeft > 0 && timeSinceLastSpeedWarning > 0.1) {
 		speedWarning.Play();
@@ -47,10 +56,18 @@ function Update () {
 		timeSinceLastSpeedWarning = 0.0;
 	}
 	
+	
+	if(numSpeedRemindersLeft > 0 && timeSinceLastSpeedReminder > 0.1) {
+		speedWarning.Play();
+		numSpeedRemindersLeft--;
+		timeSinceLastSpeedReminder = 0.0;
+	}
+	
+	
 	guiScript.updateSpeedLimit(currentSpeedLimit);
 	
     if (Input.GetKeyDown (KeyCode.UpArrow)){
-        mover.speed+=5;
+        mover.speed+=1;
         motorcycleSound.pitch+=.02;
         quietMotorcycleSound.pitch+=.02;
         if(mover.speed > 95) {
@@ -58,10 +75,15 @@ function Update () {
         	motorcycleSound.pitch-=.02;
         	quietMotorcycleSound.pitch-=.02;
         }
+        
+		if(mover.speed % 5 == 0 && mover.speed > currentSpeedLimit + 5) {
+			numSpeedRemindersLeft = 3;
+			timeSinceLastSpeedReminder = 0;
+		} 
     }
     
     if (Input.GetKeyDown (KeyCode.DownArrow)){
-    	mover.speed-=5;
+    	mover.speed-=1;
     	motorcycleSound.pitch-=.02;
     	quietMotorcycleSound.pitch-=.02;
     	if(mover.speed < 0) {
@@ -94,7 +116,11 @@ function Update () {
     		quietMotorcycleSound.Stop();
     	}
     	
+    	
+    	
     }
+    
+    
     
 }
 
