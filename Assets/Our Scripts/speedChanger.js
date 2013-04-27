@@ -31,7 +31,7 @@ function Update () {
 	guiScript.updateCurrentSpeed(mover.speed);
 	
 	
-	if(car.transform.position.z > 42000) {
+	if(car.transform.position.z > 45573) {
 		currentSpeedLimit = 65;
 	} else if (car.transform.position.z > 23598) {
 		currentSpeedLimit = 35;
