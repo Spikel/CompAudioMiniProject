@@ -3,9 +3,11 @@
 public var currentSpeedLimit = 65;
 public var guiScript : motorcycleGUI;
 public var speedLimitChangeSound : AudioSource;
+public var speedLimitChangeSoundDown : AudioSource;
 public var motorcycleSound : AudioSource;
 public var quietMotorcycleSound : AudioSource;
 public var speedWarning : AudioSource;
+
 
 public var timeSinceLastSpeedReminder = 0.0;
 public var numSpeedRemindersLeft = 0;
@@ -41,7 +43,11 @@ function Update () {
 	timeSinceLastSpeedReminder += Time.deltaTime;
 	
 	if(oldSpeedLimit != currentSpeedLimit) {
-		speedLimitChangeSound.Play();
+		if(oldSpeedLimit < currentSpeedLimit) {
+			speedLimitChangeSound.Play();
+		} else {
+			speedLimitChangeSoundDown.Play();
+		}
 		if(mover.speed > currentSpeedLimit + 10) {
 			
 			numSpeedWarningsLeft = 3;
@@ -109,9 +115,11 @@ function Update () {
        doCancellation = !doCancellation;
      	Debug.Log("Cancelation" + doCancellation);
     	if(doCancellation) {
+    		Debug.Log("DoCancellation");
     		motorcycleSound.Stop();
     		quietMotorcycleSound.Play();
     	} else {
+    		Debug.Log("Don't Do Cancellation");
     		motorcycleSound.Play();
     		quietMotorcycleSound.Stop();
     	}
